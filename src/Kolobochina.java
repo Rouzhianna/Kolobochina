@@ -1,25 +1,32 @@
-import entities.Fabrics.HeroFabric;
-import entities.Hero;
-
-import java.util.Scanner;
-
 /**
- * Created by N33na on 02.03.2017.
+ * @author Oleg Shatin
+ * 11-501
  */
-public class Kolobochina {
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import gui.controllers.StartController;
+
+import java.io.IOException;
+
+public class Kolobochina extends Application {
 
     public static void main(String[] args) {
-
+        launch(args);
     }
 
-    private static Hero chooseSmbd(String role){
-        System.out.println("Choose your " + role + "!");
-        System.out.println("Kolobok\nFox");
-        Scanner sc = new Scanner(System.in);
-        Hero player = HeroFabric.createAHero(sc.next());
-        while (player == null)
-            System.out.println("Try again!");
-        return null;
-    }
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("gui/start_win.fxml"));
+        Parent root = null;
+        root = loader.load();
 
+        StartController startController = loader.getController();
+        startController.setStage(primaryStage);
+        primaryStage.setScene(new Scene(root, 800, 600));
+        primaryStage.show();
+    }
 }
