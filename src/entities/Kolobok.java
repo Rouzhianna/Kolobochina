@@ -7,6 +7,9 @@ public class Kolobok extends Hero {
 
     public Kolobok() {
         hp = 100;
+        flirtChance = 0.5;
+        // TODO: throw sprites into img directory
+//        imageView = new ImageView(new Image(""));
     }
 
     @Override

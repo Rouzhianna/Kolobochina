@@ -10,9 +10,12 @@ import java.net.Socket;
  */
 public class Hero {
 
+    private int hp;
     private Socket socket;
     private BufferedInputStream bis;
     private BufferedOutputStream bos;
+
+
 
     public Hero(Socket socket) throws IOException {
         this.socket = socket;
@@ -22,7 +25,7 @@ public class Hero {
 
     public Socket getSocket() { return socket; }
 
-    public BufferedInputStream getBis() { return bis; }
+    public BufferedInputStream getInputStream() { return bis; }
 
-    public BufferedOutputStream getBos() { return bos; }
+    public BufferedOutputStream getOutputStream() { return bos; }
 }

@@ -1,5 +1,8 @@
 package Server;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -27,6 +30,16 @@ public class Server {
                 System.out.println("2nd connected");
                 Hero h2 = new Hero(p2);
 
+                BufferedReader p1BR = new BufferedReader(new InputStreamReader(p1.getInputStream()));
+                PrintWriter p1PW = new PrintWriter(p1.getOutputStream(), true);
+                /*
+                String message = p1BR.readLine();
+                p1PW.println(message);
+                */
+
+                System.out.println("Room is creating..");
+                new Room(h1, h2);
+                System.out.println("Room is created");
 
             }
         }catch (Exception e) {

@@ -1,12 +1,20 @@
 package entities;
 
+import javafx.scene.image.ImageView;
+
+import java.util.Random;
+
 /**
  * Created by N33na on 02.03.2017.
  */
 public abstract class Hero {
 
     protected int hp;
+    protected double flirtChance;
+    protected int attackPower;
     protected boolean isActive = false;
+    // TODO: throw sprites into img directory
+    protected ImageView imageView;
 
     public int getHp() {
         return hp;
@@ -28,7 +36,11 @@ public abstract class Hero {
         System.out.println("Hero heals himself");
     }
     void flirt(Hero hero){
-        System.out.println("Hero flirts with some chance");
+        Random random = new Random();
+        double num = random.nextDouble();
+        num = num - (num % 0.01);
+        if(num >= flirtChance)
+            System.out.println("This hero's flirt succeed");
     }
     void giveUp(){
         System.out.println("Hero gives up, his enemy wins");
