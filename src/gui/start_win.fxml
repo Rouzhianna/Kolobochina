@@ -8,7 +8,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="root" alignment="center" hgap="10" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="800" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.StartController">
+<GridPane fx:id="root" alignment="center" hgap="10" maxHeight="-Infinity"
+          maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="800"
+          vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="gui.controllers.StartController">
    <children>
       <Pane prefHeight="580.0" prefWidth="800.0" style="-fx-background-color: white;">
          <children>
@@ -22,7 +25,7 @@
                     <Image url="@img/colobochina_start_win.png" />
                 </image>
             </ImageView>
-            <Button layoutX="338.0" layoutY="382.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="124.0" text="Choose" />
+            <Button onMouseClicked="#userClickedFirstButton" layoutX="338.0" layoutY="382.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="124.0" text="Choose" />
          </children>
       </Pane>
 
