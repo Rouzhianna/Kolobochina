@@ -22,10 +22,12 @@ public abstract class Hero {
     protected Image frontAttack;
     protected Image backAttack;
     protected ImageView imageView;
-
-
     protected boolean isActive = false;
-
+    private String heroName;
+    protected Hero(){
+        heroName = getClass().getSimpleName().toLowerCase();
+        addImages();
+    }
     public int getHp() {
         return hp;
     }
@@ -59,4 +61,21 @@ public abstract class Hero {
         System.out.println("Hero gives up, his enemy wins");
     }
 
+    //get-setters
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
+    protected void addImages() {
+        frontWait =   new Image(getClass().getResource("../gui/img/heroes/" + heroName + "/" + heroName +"_front_wait.png").toExternalForm());
+        backWait =    new Image(getClass().getResource("../gui/img/heroes/" + heroName + "/" + heroName +"_back_wait.png").toExternalForm());
+        frontAttack = new Image(getClass().getResource("../gui/img/heroes/" + heroName + "/" + heroName +"_front_attack.png").toExternalForm());
+        backAttack =  new Image(getClass().getResource("../gui/img/heroes/" + heroName + "/" + heroName +"_back_attack.png").toExternalForm());
+        frontDamage = new Image(getClass().getResource("../gui/img/heroes/" + heroName + "/" + heroName +"_front_damage.png").toExternalForm());
+        backDamage =  new Image(getClass().getResource("../gui/img/heroes/" + heroName + "/" + heroName +"_back_damage.png").toExternalForm());
+        imageView = new ImageView(frontWait);
+    }
 }

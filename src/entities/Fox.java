@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 public class Fox extends Hero{
 
     public Fox (){
+        super();
         hp = 120;
         flirtChance = 0.7;
         attackPower = 15;
