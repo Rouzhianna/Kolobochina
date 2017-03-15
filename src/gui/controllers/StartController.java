@@ -15,11 +15,6 @@ public class StartController {
 
     @FXML
     private Pane menuPane;
-    @FXML
-    private Button startBtn;
-    @FXML
-    private Button exitBtn;
-
 
     public void setStage(Stage stage) {
         this.stage = stage;

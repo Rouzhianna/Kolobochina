@@ -13,7 +13,6 @@ public class Fox extends Hero{
         hp = 120;
         flirtChance = 0.7;
         attackPower = 15;
-        // TODO: throw sprites into img directory
         imageView = new ImageView();
     }
 

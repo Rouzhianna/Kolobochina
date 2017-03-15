@@ -23,11 +23,14 @@ public abstract class Hero {
     protected Image backAttack;
     protected ImageView imageView;
     protected boolean isActive = false;
+
     private String heroName;
+
     protected Hero(){
         heroName = getClass().getSimpleName().toLowerCase();
         addImages();
     }
+
     public int getHp() {
         return hp;
     }
@@ -69,6 +72,7 @@ public abstract class Hero {
     public void setImageView(ImageView imageView) {
         this.imageView = imageView;
     }
+
     protected void addImages() {
         frontWait =   new Image(getClass().getResource("../gui/img/heroes/" + heroName + "/" + heroName +"_front_wait.png").toExternalForm());
         backWait =    new Image(getClass().getResource("../gui/img/heroes/" + heroName + "/" + heroName +"_back_wait.png").toExternalForm());
