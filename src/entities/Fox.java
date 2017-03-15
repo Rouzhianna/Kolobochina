@@ -10,15 +10,15 @@ public class Fox extends Hero{
 
     public Fox (){
         hp = 120;
-        flirtChance = 1;
-        attackPower = 5;
+        flirtChance = 0.7;
+        attackPower = 15;
         // TODO: throw sprites into img directory
-        imageView = new ImageView(new Image(""));
+        imageView = new ImageView();
     }
 
     @Override
-    public void attack(Hero hero) {
-        System.out.println("fox attacks strongly");
+    public String attack(Hero hero) {
+        return null;
     }
 
     @Override
@@ -26,6 +26,6 @@ public class Fox extends Hero{
 
     @Override
     public void giveUp() {
-        System.out.println("fox gives up, ");
+        System.out.println("fox gives up!");
     }
 }

@@ -3,34 +3,29 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="root" alignment="center" hgap="10" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="800" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.StartController">
-   <children>
-      <Pane prefHeight="580.0" prefWidth="800.0" style="-fx-background-color: white;">
-         <children>
-            <ImageView fitHeight="587.0" fitWidth="381.0" layoutX="186.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@img/chooseDest_start_window.png" />
-                </image>
-            </ImageView>
-            <ImageView fitHeight="228.0" fitWidth="678.0" layoutX="70.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@img/colobochina_start_win.png" />
-                </image>
-            </ImageView>
-            <Button layoutX="338.0" layoutY="382.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="124.0" text="Choose" />
-         </children>
-      </Pane>
+<Pane id="bckgrnd" fx:id="menuPane" prefHeight="600" prefWidth="800" xmlns="http://javafx.com/javafx/8.0.72"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.StartController">
+    <children>
+        <Pane prefHeight="580.0" prefWidth="800.0" style="-fx-background-color: white;">
+            <children>
+                <ImageView fitHeight="587.0" fitWidth="381.0" layoutX="186.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@img/chooseDest_start_window.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="228.0" fitWidth="678.0" layoutX="70.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@img/colobochina_start_win.png" />
+                    </image>
+                </ImageView>
 
-   </children>
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
-</GridPane>
+                <Button fx:id="startBtn" layoutX="338.0" layoutY="382.0" mnemonicParsing="false"
+                        onMouseClicked="#mouseClicked" prefHeight="60.0" prefWidth="124.0" text="Choose" />
+                <Button fx:id="exitBtn" layoutX="338.0" layoutY="458.0" mnemonicParsing="false"
+                        onMouseClicked="#exitGame" prefHeight="60.0" prefWidth="124.0" text="Exit" />
+            </children>
+        </Pane>
+    </children>
+</Pane>
