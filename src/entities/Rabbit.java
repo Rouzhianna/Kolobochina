@@ -12,7 +12,7 @@ public class Rabbit extends Hero {
         hp = 80;
         flirtChance = 0.5;
         attackPower = 10;
-        desc = "";
+        desc = "I'm rabbit";
     }
 
     @Override

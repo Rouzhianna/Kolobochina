@@ -13,6 +13,7 @@ public abstract class Hero {
     protected int hp;
     protected double flirtChance;
     protected int attackPower;
+
     protected String desc;
 
     protected Image frontWait;
@@ -69,6 +70,16 @@ public abstract class Hero {
     public void setImageView(ImageView imageView) {
         this.imageView = imageView;
     }
+
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
     protected void addImages() {
         frontWait =   new Image(getClass().getResource("../gui/img/heroes/" + heroName + "/" + heroName +"_front_wait.png").toExternalForm());
         backWait =    new Image(getClass().getResource("../gui/img/heroes/" + heroName + "/" + heroName +"_back_wait.png").toExternalForm());
