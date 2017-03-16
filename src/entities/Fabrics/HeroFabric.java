@@ -3,6 +3,7 @@ package entities.Fabrics;
 import entities.Fox;
 import entities.Hero;
 import entities.Kolobok;
+import entities.Rabbit;
 
 /**
  * Created by N33na on 02.03.2017.
@@ -14,8 +15,9 @@ public class HeroFabric {
             return new Fox();
         else if(hero.equalsIgnoreCase("kolobok"))
             return new Kolobok();
-        else
-            return null;
+        else if (hero.equalsIgnoreCase("rabbit"))
+            return new Rabbit();
+        return null;
     }
 
 }

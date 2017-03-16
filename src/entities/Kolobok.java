@@ -1,8 +1,5 @@
 package entities;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 /**
  * Created by N33na on 02.03.2017.
  */
@@ -16,7 +13,6 @@ public class Kolobok extends Hero {
         attackPower = 15;
         desc = "Brave young hero, right from the russian \"pechka\".\nHas ordinary hp amount, ordinary " +
                 "attack power, but very big chances to charm his opponent.";
-
     }
 
 }

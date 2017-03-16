@@ -14,6 +14,7 @@ public abstract class Hero {
     protected static int allHp = 1;
     protected double flirtChance;
     protected int attackPower;
+    protected int healCoolDown;
 
     protected String desc;
 
@@ -50,7 +51,7 @@ public abstract class Hero {
         return null;
     }
 
-    public void heal(){ System.out.println("Hero heals himself"); }
+    public void heal(){ setHp(getHp() + 5); }
 
     public boolean flirt(){
         Random random = new Random();
