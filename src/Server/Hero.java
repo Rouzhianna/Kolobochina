@@ -10,12 +10,12 @@ import java.net.Socket;
  */
 public class Hero {
 
-    private int hp;
+    private String name;
     private Socket socket;
     private BufferedInputStream bis;
     private BufferedOutputStream bos;
 
-
+    public void setName(String name){this.name = name;}
 
     public Hero(Socket socket) throws IOException {
         this.socket = socket;

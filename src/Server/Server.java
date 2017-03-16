@@ -1,6 +1,9 @@
 package Server;
 
+import entities.Fabrics.HeroFabric;
+
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -24,18 +27,21 @@ public class Server {
             while (true){
                 Socket p1 = serverSocket.accept();
                 System.out.println("1st connected");
-                Hero h1 = new Hero(p1);
+                BufferedReader p1BR = new BufferedReader(new InputStreamReader(p1.getInputStream()));
+                PrintWriter p1PW = new PrintWriter(p1.getOutputStream(), true);
+                String s = p1BR.readLine();
+                System.out.println("cl1: " + s);
+                Hero h1 = createHero(s, p1);
+                System.out.println("hero 1 created");
 
                 Socket p2 = serverSocket.accept();
                 System.out.println("2nd connected");
-                Hero h2 = new Hero(p2);
-
-                BufferedReader p1BR = new BufferedReader(new InputStreamReader(p1.getInputStream()));
-                PrintWriter p1PW = new PrintWriter(p1.getOutputStream(), true);
-                /*
-                String message = p1BR.readLine();
-                p1PW.println(message);
-                */
+                BufferedReader p2BR = new BufferedReader(new InputStreamReader(p1.getInputStream()));
+                PrintWriter p2PW = new PrintWriter(p1.getOutputStream(), true);
+                s = p1BR.readLine();
+                System.out.println("cl2: " + s);
+                Hero h2 = createHero(s, p2);
+                System.out.println("hero 2 created");
 
                 System.out.println("Room is creating..");
                 new Room(h1, h2);
@@ -45,6 +51,12 @@ public class Server {
         }catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Hero createHero(String name, Socket socket) throws IOException {
+        Hero hero = new Hero(socket);
+        hero.setName(name);
+        return hero;
     }
 
     public static void main(String[] args) { new Server().go(); }

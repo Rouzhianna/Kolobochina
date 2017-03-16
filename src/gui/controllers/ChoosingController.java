@@ -1,5 +1,6 @@
 package gui.controllers;
 
+import Client.Helpers.Connection;
 import entities.Hero;
 import entities.Kolobok;
 import entities.Rabbit;
@@ -24,20 +25,20 @@ public class ChoosingController {
     public GridPane heroesContainer;
     @FXML
     public Label infoLabel;
-    Collection<Hero> avalibleHeroes;
+    Collection<Hero> availableHeroes;
     private Stage stage;
 
     public void initialize(){
-        avalibleHeroes = new ArrayList<>();
-        avalibleHeroes.add(new Kolobok());
-        avalibleHeroes.add(new Rabbit());
+        availableHeroes = new ArrayList<>();
+        availableHeroes.add(new Kolobok());
+        availableHeroes.add(new Rabbit());
         addHeroesToView();
 
     }
     private void addHeroesToView() {
         int i = 0;
         int j = 0;
-        for (Hero hero: avalibleHeroes){
+        for (Hero hero: availableHeroes){
             hero.getImageView().setPreserveRatio(true);
             hero.getImageView().setFitWidth(150);
             hero.getImageView().setVisible(true);
@@ -76,11 +77,16 @@ public class ChoosingController {
         }
         heroesContainer.setVisible(true);
     }
+
     //method invoked by event handler
     private void userDoSelect(Hero selectedHero) {
         //todo: override this
-        heroesContainer.add(new Label(selectedHero.getClass().getSimpleName()), 2, 1);
-
+//        heroesContainer.add(new Label(selectedHero.getClass().getSimpleName()), 2, 1);
+        String name = selectedHero.getHeroName();
+        System.out.println(name);
+        Connection.init();
+        Connection.getPrintWriter().println(name);
+        Connection.getPrintWriter().flush();
     }
 
     public void setStage(Stage stage) {

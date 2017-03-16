@@ -42,10 +42,10 @@ public class Room implements Runnable{
 
 
 
-    private boolean attack(Hero attackHero, Hero waitHero){
+    private boolean turn(Hero activeHero, Hero waitHero){
         try {
-            System.out.println(heroes.indexOf(attackHero) + 1);
-            while (attackHero.getInputStream().read()!= 0){
+            System.out.println(heroes.indexOf(activeHero) + 1);
+            while (activeHero.getInputStream().read()!= 0){
 
             }
         } catch (Exception e) {

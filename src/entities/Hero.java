@@ -26,6 +26,7 @@ public abstract class Hero {
     protected boolean isActive = false;
 
     private String heroName;
+    public String getHeroName(){return heroName;}
 
     protected Hero(){
         heroName = getClass().getSimpleName().toLowerCase();
