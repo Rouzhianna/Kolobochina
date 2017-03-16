@@ -13,7 +13,7 @@ public class Rabbit extends Hero {
         hp = allHp;
         flirtChance = 0.5;
         attackPower = 10;
-        desc = "Little rabbit from the forest.\nHe is'n very flirty and not very strong, but has more hp than our " +
+        desc = "Little rabbit from the forest.\nHe isn't very flirty and not very strong, but has more hp than our " +
                 "round friend.";
     }
 

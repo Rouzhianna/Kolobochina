@@ -83,24 +83,24 @@ public class FightController {
     }
 
     private void refreshHp(){
-        playerHp.setText("hp: " + myself.getHp());
-        double progress = 0;
-        try {
-            progress = myself.getHp() / myself.getAllHp();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        playerHPBar.setProgress(playerHPBar.getProgress() - progress);
+        playerHp.setText("hp: " + myself.getHp() + "/" + myself.getAllHp());
+        playerHPBar.setProgress(countProgress(myself));
     }
+
     private void refreshEnemyHp(){
-        opponentHp.setText("hp: " + enemy.getHp());
+        opponentHp.setText("hp: " + enemy.getHp() + "/" + enemy.getAllHp());
+        opponentHPBar.setProgress(countProgress(enemy));
+    }
+
+    private double countProgress(Hero hero){
         double progress = 0;
         try {
-            progress = enemy.getHp() / enemy.getAllHp();
+            progress = (double) hero.getHp() / (double) hero.getAllHp();
+            System.out.println("progress: " + progress);
         }catch (Exception e){
             e.printStackTrace();
         }
-        opponentHPBar.setProgress(playerHPBar.getProgress() - progress);
+        return (progress);
     }
 
 }

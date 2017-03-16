@@ -11,7 +11,7 @@ import java.util.Random;
 public abstract class Hero {
 
     protected int hp;
-    protected static int allHp;
+    protected static int allHp = 1;
     protected double flirtChance;
     protected int attackPower;
 

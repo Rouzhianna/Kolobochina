@@ -24,7 +24,7 @@ public class Room implements Runnable{
 
         // let them know, who they are fighting with
         p1PW.println(hero2.getName());
-        p2PW.println(hero2.getName());
+        p2PW.println(hero1.getName());
 
         boolean gameIsRunning = true;
         while (gameIsRunning){
