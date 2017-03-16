@@ -1,6 +1,7 @@
 package gui.controllers;
 
 import Client.Helpers.Connection;
+import Client.Helpers.Loader;
 import entities.Hero;
 import entities.Kolobok;
 import entities.Rabbit;
@@ -9,10 +10,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -21,10 +22,17 @@ import java.util.Collection;
  *         11-501
  */
 public class ChoosingController {
+
+    private static final String FIGHT_FXML = "../../gui/fight_win.fxml";
+
+    @FXML
+    public Label selectLabel;
     @FXML
     public GridPane heroesContainer;
     @FXML
     public Label infoLabel;
+
+
     Collection<Hero> availableHeroes;
     private Stage stage;
 
@@ -46,7 +54,11 @@ public class ChoosingController {
                 Hero selectedHero = hero;
                 @Override
                 public void handle(MouseEvent event) {
-                    userDoSelect(selectedHero);
+                    try {
+                        userDoSelect(selectedHero);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
             hero.getImageView().setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -79,14 +91,17 @@ public class ChoosingController {
     }
 
     //method invoked by event handler
-    private void userDoSelect(Hero selectedHero) {
-        //todo: override this
-//        heroesContainer.add(new Label(selectedHero.getClass().getSimpleName()), 2, 1);
+    private void userDoSelect(Hero selectedHero) throws IOException {
         String name = selectedHero.getHeroName();
         System.out.println(name);
+
+        selectLabel.setText("Waiting for server connection...");
         Connection.init();
         Connection.getPrintWriter().println(name);
-        Connection.getPrintWriter().flush();
+        selectLabel.setText("Waiting for another player...");
+
+        if(Connection.getBufferedReader().readLine().equals("ready"))
+            Loader.goTo(FIGHT_FXML, heroesContainer);
     }
 
     public void setStage(Stage stage) {

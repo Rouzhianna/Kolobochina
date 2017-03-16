@@ -10,7 +10,8 @@ public class Fox extends Hero{
 
     public Fox (){
         super();
-        hp = 120;
+        allHp = 120;
+        hp = allHp;
         flirtChance = 0.7;
         attackPower = 15;
         imageView = new ImageView();

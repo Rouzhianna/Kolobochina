@@ -25,23 +25,20 @@ public class Server {
         try {
             ServerSocket serverSocket = new ServerSocket(PORT);
             while (true){
-                Socket p1 = serverSocket.accept();
-                System.out.println("1st connected");
-                BufferedReader p1BR = new BufferedReader(new InputStreamReader(p1.getInputStream()));
-                PrintWriter p1PW = new PrintWriter(p1.getOutputStream(), true);
-                String s = p1BR.readLine();
-                System.out.println("cl1: " + s);
-                Hero h1 = createHero(s, p1);
-                System.out.println("hero 1 created");
+                Socket socket1 = serverSocket.accept();
+                BufferedReader p1BR = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
+                PrintWriter p1PW = new PrintWriter(socket1.getOutputStream(), true);
+                String name = p1BR.readLine();
+                Hero h1 = createHero(name, socket1);
 
-                Socket p2 = serverSocket.accept();
-                System.out.println("2nd connected");
-                BufferedReader p2BR = new BufferedReader(new InputStreamReader(p1.getInputStream()));
-                PrintWriter p2PW = new PrintWriter(p1.getOutputStream(), true);
-                s = p1BR.readLine();
-                System.out.println("cl2: " + s);
-                Hero h2 = createHero(s, p2);
-                System.out.println("hero 2 created");
+                Socket socket2 = serverSocket.accept();
+                BufferedReader p2BR = new BufferedReader(new InputStreamReader(socket2.getInputStream()));
+                PrintWriter p2PW = new PrintWriter(socket2.getOutputStream(), true);
+                name = p2BR.readLine();
+                Hero h2 = createHero(name, socket2);
+
+                p1PW.println("ready");
+                p2PW.println("ready");
 
                 System.out.println("Room is creating..");
                 new Room(h1, h2);

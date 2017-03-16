@@ -11,6 +11,7 @@ import java.util.Random;
 public abstract class Hero {
 
     protected int hp;
+    protected static int allHp;
     protected double flirtChance;
     protected int attackPower;
 
@@ -33,15 +34,13 @@ public abstract class Hero {
         addImages();
     }
 
-    public int getHp() {
-        return hp;
-    }
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
-    public boolean isActive() {
-        return isActive;
-    }
+    public int getHp() { return hp; }
+    public int getAllHp() {return allHp;}
+
+    public int getAttackPower() { return attackPower; }
+
+    public void setHp(int hp) { this.hp = hp; }
+    public boolean isActive() { return isActive; }
     public void setActive(boolean active) {
         isActive = active;
     }
@@ -50,18 +49,18 @@ public abstract class Hero {
         System.out.println("Hero attacks");
         return null;
     }
-    public void heal(){
-        System.out.println("Hero heals himself");
-    }
-    public void flirt(Hero hero){
+
+    public void heal(){ System.out.println("Hero heals himself"); }
+
+    public boolean flirt(){
         Random random = new Random();
         double num = random.nextDouble();
         num = num - (num % 0.01);
         if(num >= flirtChance)
-            System.out.println("This hero's flirt on " + hero.getClass().getSimpleName().toLowerCase() + " succeed.");
-        else
-            System.out.println("this hero's flirt on " + hero.getClass().getSimpleName().toLowerCase() + " not succeed");
+            return true;
+        return false;
     }
+
     public void giveUp(){
         System.out.println("Hero gives up, his enemy wins");
     }
@@ -92,4 +91,11 @@ public abstract class Hero {
         backDamage =  new Image(getClass().getResource("../gui/img/heroes/" + heroName + "/" + heroName +"_back_damage.png").toExternalForm());
         imageView = new ImageView(frontWait);
     }
+
+    public Image getFrontWait() { return frontWait; }
+    public Image getBackWait() { return backWait; }
+    public Image getFrontDamage() { return frontDamage; }
+    public Image getBackDamage() { return backDamage; }
+    public Image getFrontAttack() { return frontAttack; }
+    public Image getBackAttack() { return backAttack; }
 }

@@ -24,7 +24,6 @@ public class StartController {
         Loader.goTo(CHOOSE_FXML, menuPane);
     }
 
-
     public void exitGame(MouseEvent mouseEvent) {
         System.exit(0);
     }

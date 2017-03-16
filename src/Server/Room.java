@@ -1,7 +1,6 @@
 package Server;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
 
 /**
  * Created by N33na on 11.03.2017.
@@ -9,10 +8,24 @@ import java.util.List;
 public class Room implements Runnable{
 
     private Thread thread;
-    private List<Hero> heroes;
+    private Hero hero1;
+    private Hero hero2;
+
+    private PrintWriter p1PW;
+    private BufferedReader p1BR;
+    private PrintWriter p2PW;
+    private BufferedReader p2BR;
 
     @Override
     public void run() {
+        // let them know, who they are
+        p1PW.println(hero1.getName());
+        p2PW.println(hero2.getName());
+
+        // let them know, who they are fighting with
+        p1PW.println(hero2.getName());
+        p2PW.println(hero2.getName());
+
         boolean gameIsRunning = true;
         while (gameIsRunning){
             if(!hpCheck())
@@ -23,20 +36,20 @@ public class Room implements Runnable{
         System.out.println("End of the game");
     }
 
-    public Room(Hero player1, Hero player2) {
-        this.heroes = new ArrayList<>();
-        heroes.add(player1);
-        heroes.add(player2);
+    public Room(Hero player1, Hero player2) throws IOException {
+        this.hero1 = player1;
+        p1BR = new BufferedReader(new InputStreamReader(hero1.getSocket().getInputStream()));
+        p1PW = new PrintWriter(hero1.getSocket().getOutputStream(), true);
+        this.hero2 = player2;
+        p2BR = new BufferedReader(new InputStreamReader(hero2.getSocket().getInputStream()));
+        p2PW = new PrintWriter(hero2.getSocket().getOutputStream(), true);
 
         this.thread = new Thread(this);
         this.thread.start();
     }
 
     private boolean hpCheck (){
-        for (Hero hero: heroes){
-            // TODO: hp check
 
-        }
         return false;
     }
 
@@ -44,7 +57,7 @@ public class Room implements Runnable{
 
     private boolean turn(Hero activeHero, Hero waitHero){
         try {
-            System.out.println(heroes.indexOf(activeHero) + 1);
+        //    System.out.println(heroes.indexOf(activeHero) + 1);
             while (activeHero.getInputStream().read()!= 0){
 
             }
@@ -56,8 +69,8 @@ public class Room implements Runnable{
 
     private void endGame(){
         try {
-            for (Hero hero : heroes)
-                hero.getSocket().close();
+            hero1.getSocket().close();
+            hero2.getSocket().close();
         }catch (Exception e){
             e.printStackTrace();
         }

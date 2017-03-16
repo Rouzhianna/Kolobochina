@@ -15,6 +15,7 @@ public class Hero {
     private BufferedInputStream bis;
     private BufferedOutputStream bos;
 
+    public String getName() { return name; }
     public void setName(String name){this.name = name;}
 
     public Hero(Socket socket) throws IOException {
