@@ -2,12 +2,14 @@ package gui.controllers;
 
 import Client.Helpers.Connection;
 import Client.Helpers.Loader;
+import entities.Fox;
 import entities.Hero;
 import entities.Kolobok;
 import entities.Rabbit;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -31,6 +33,8 @@ public class ChoosingController {
     public GridPane heroesContainer;
     @FXML
     public Label infoLabel;
+    @FXML
+    public TextField hostname;
 
 
     Collection<Hero> availableHeroes;
@@ -40,6 +44,7 @@ public class ChoosingController {
         availableHeroes = new ArrayList<>();
         availableHeroes.add(new Kolobok());
         availableHeroes.add(new Rabbit());
+        availableHeroes.add(new Fox());
         addHeroesToView();
 
     }
@@ -76,6 +81,7 @@ public class ChoosingController {
                     infoLabel.setVisible(false);
                 }
             });
+
             heroesContainer.add(hero.getImageView(), i, j);
             if (i == heroesContainer.getColumnConstraints().size() - 1) {
                 if (j == heroesContainer.getRowConstraints().size() - 1) {

@@ -14,7 +14,8 @@ public class Fox extends Hero{
         hp = allHp;
         flirtChance = 0.7;
         attackPower = 10;
-        imageView = new ImageView();
+
+        desc = "Fair spring came and melted the fox's house, while the hare's stood firm and strong.";
     }
 
     @Override

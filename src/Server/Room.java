@@ -58,7 +58,7 @@ public class Room implements Runnable{
 
     private void handleCommand(Hero me, Hero enemy, String s){
         if(s.equals("LOS"));
-            
+
     }
 
 
