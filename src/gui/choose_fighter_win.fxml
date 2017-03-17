@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -13,11 +14,12 @@
     <children>
         <Pane prefHeight="580.0" prefWidth="800.0" style="-fx-background-color: white;">
             <children>
-            <ImageView fitHeight="258.0" fitWidth="800.0" layoutX="19.0" layoutY="161.0" opacity="0.37" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@img/colobochina_start_win.png" />
-                </image>
-            </ImageView>
+                <TextField fx:id="hostname" layoutX="438.0" layoutY="13.0" prefHeight="41.0" prefWidth="165.0" text="localhost" />
+                <ImageView fitHeight="258.0" fitWidth="800.0" layoutX="19.0" layoutY="161.0" opacity="0.37" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@img/colobochina_start_win.png" />
+                    </image>
+                </ImageView>
                 <Label fx:id="selectLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="195.0" layoutY="54.0" prefHeight="54.0" prefWidth="390.0" text="Select your character" textAlignment="CENTER" textFill="#b52e2e" wrapText="true">
                     <font>
                         <Font name="System Bold Italic" size="36.0" />
@@ -39,6 +41,11 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
+            <Label fx:id="selectLabel1" alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="13.0" prefHeight="41.0" prefWidth="390.0" text="Enter  server address" textAlignment="CENTER" textFill="#b52e2e" wrapText="true">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Label>
             </children>
         </Pane>
 
