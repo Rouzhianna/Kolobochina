@@ -13,7 +13,7 @@ public class Fox extends Hero{
         allHp = 120;
         hp = allHp;
         flirtChance = 0.7;
-        attackPower = 15;
+        attackPower = 10;
         imageView = new ImageView();
     }
 
@@ -23,7 +23,7 @@ public class Fox extends Hero{
     }
 
     @Override
-    public void heal() { /* Fox can't heal itself */ }
+    public boolean heal() { return false; }
 
     @Override
     public void giveUp() {

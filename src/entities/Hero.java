@@ -11,10 +11,19 @@ import java.util.Random;
 public abstract class Hero {
 
     protected int hp;
-    protected static int allHp = 1;
+    protected static int allHp;
     protected double flirtChance;
     protected int attackPower;
     protected int healCoolDown;
+
+    public double getFlirtChance() { return flirtChance; }
+    public int getHealCoolDown() { return healCoolDown; }
+    public int getNowCoolDown() { return nowCoolDown; }
+    public boolean isFlirted() { return isFlirted; }
+
+    protected int nowCoolDown = 0;
+    protected boolean isFlirted = false;
+
 
     protected String desc;
 
@@ -47,11 +56,19 @@ public abstract class Hero {
     }
 
     public String attack(Hero hero) {
-        System.out.println("Hero attacks");
+        System.out.println("Hero attacks depending of flirting");
         return null;
     }
 
-    public void heal(){ setHp(getHp() + 5); }
+    public boolean heal(){
+        if(nowCoolDown == 0) {
+            int hp = getHp() + 7;
+            setHp(hp > getAllHp() ? allHp : hp);
+            nowCoolDown = healCoolDown;
+            return true;
+        }
+        return false;
+    }
 
     public boolean flirt(){
         Random random = new Random();

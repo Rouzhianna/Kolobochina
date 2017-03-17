@@ -66,21 +66,23 @@
                                                                         vgrow="SOMETIMES"/>
                                                     </rowConstraints>
                                                     <children>
-                                                        <Button alignment="CENTER" mnemonicParsing="false"
-                                                                onMouseClicked="#playerAttack" prefHeight="80.0"
+                                                        <Button fx:id="attackBtn" alignment="CENTER" mnemonicParsing="false"
+                                                                onMouseClicked="#btnHandler" prefHeight="80.0"
                                                                 prefWidth="160.0" text="Attack"
                                                                 GridPane.halignment="CENTER"
                                                                 GridPane.valignment="CENTER"/>
-                                                        <Button mnemonicParsing="false"
-                                                                onMouseClicked="#heal" prefHeight="80.0"
+                                                        <Button fx:id="healBtn" alignment="CENTER" mnemonicParsing="false"
+                                                                onMouseClicked="#btnHandler" prefHeight="80.0"
                                                                 prefWidth="160.0" text="Heal"
                                                                 GridPane.columnIndex="1" GridPane.halignment="CENTER"
                                                                 GridPane.valignment="CENTER"/>
-                                                        <Button mnemonicParsing="false" onMouseClicked="#playerFlirt"
+                                                        <Button fx:id="flirtBtn" alignment="CENTER" mnemonicParsing="false"
+                                                                onMouseClicked="#btnHandler"
                                                                 prefHeight="80.0" prefWidth="160.0" text="Flirt"
                                                                 GridPane.halignment="CENTER" GridPane.rowIndex="1"
                                                                 GridPane.valignment="CENTER"/>
-                                                        <Button mnemonicParsing="false" onMouseClicked="#playerLeave"
+                                                        <Button fx:id="leaveBtn" alignment="CENTER" mnemonicParsing="false"
+                                                                onMouseClicked="#btnHandler"
                                                                 prefHeight="80.0" prefWidth="160.0" text="Leave"
                                                                 GridPane.columnIndex="1" GridPane.halignment="CENTER"
                                                                 GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
