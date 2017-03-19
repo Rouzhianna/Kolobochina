@@ -11,32 +11,33 @@ public class Room implements Runnable{
 
     private Thread thread;
     private List<Hero> heroes;
+    private int nowAct = 0;
+    private boolean flag = true;
 
-    private PrintWriter p1PW;
-    private BufferedReader p1BR;
-    private PrintWriter p2PW;
-    private BufferedReader p2BR;
+    private List<PrintWriter> printWriters;
+    private List<BufferedReader> bufferedReaders;
 
     @Override
     public void run() {
         // let them know, who they are
-        p1PW.println(heroes.get(0).getName());
-        p2PW.println(heroes.get(1).getName());
+        printWriters.get(0).println(heroes.get(0).getName());
+        printWriters.get(1).println(heroes.get(1).getName());
 
         // let them know, who they fight with
-        p1PW.println(heroes.get(1).getName());
-        p2PW.println(heroes.get(0).getName());
+        printWriters.get(0).println(heroes.get(1).getName());
+        printWriters.get(1).println(heroes.get(0).getName());
 
-        while (true){
+        while (flag){
             // TODO: 17.03.2017 hp check
             try {
-                p1PW.println("TUR");
-                String command = p1BR.readLine();
-                handleCommand(heroes.get(0), heroes.get(1),command);
-            } catch (IOException e) {
+                printWriters.get(nowAct).println("TUR");
+                printWriters.get(getOtherIndex(nowAct)).println("WAI");
+                String command = bufferedReaders.get(nowAct).readLine();
+                handleCommand(nowAct, command);
+                nowAct = getOtherIndex(nowAct);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            break;
         }
 
         endGame();
@@ -45,20 +46,34 @@ public class Room implements Runnable{
 
     public Room(Hero player1, Hero player2) throws IOException {
         heroes = new ArrayList<>();
+        bufferedReaders = new ArrayList<>();
+        printWriters = new ArrayList<>();
+
         heroes.add(player1);
-        p1BR = new BufferedReader(new InputStreamReader(heroes.get(0).getSocket().getInputStream()));
-        p1PW = new PrintWriter(heroes.get(0).getSocket().getOutputStream(), true);
+        bufferedReaders.add(new BufferedReader(new InputStreamReader(player1.getSocket().getInputStream())));
+        printWriters.add(new PrintWriter(player1.getSocket().getOutputStream(), true));
+
         heroes.add(player2);
-        p2BR = new BufferedReader(new InputStreamReader(heroes.get(1).getSocket().getInputStream()));
-        p2PW = new PrintWriter(heroes.get(1).getSocket().getOutputStream(), true);
+        bufferedReaders.add(new BufferedReader(new InputStreamReader(player2.getSocket().getInputStream())));
+        printWriters.add(new PrintWriter(player2.getSocket().getOutputStream(), true));
 
         this.thread = new Thread(this);
         this.thread.start();
     }
 
-    private void handleCommand(Hero me, Hero enemy, String s){
-        if(s.equals("LOS"));
+    private int getOtherIndex(int i){
+        return (i + 1) % 2;
+    }
 
+    private void handleCommand(int i, String s){
+        if(s.equals("LOS") || s.equals("LEA")) {
+            System.out.println(s);
+            printWriters.get(getOtherIndex(i)).println("WIN");
+            printWriters.get(i).println("LOS");
+            flag = false;
+        }else {
+            printWriters.get(getOtherIndex(i)).println(s);
+        }
     }
 
 

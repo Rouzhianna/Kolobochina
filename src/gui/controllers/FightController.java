@@ -25,8 +25,8 @@ import java.io.PrintWriter;
  */
 public class FightController {
 
-    private final static String WIN_FXML = "";
-    private final static String LOS_FXML = "";
+    private final static String WIN_FXML = "../../gui/winner_win.fxml";
+    private final static String LOS_FXML = "../../gui/looser_win.fxml";
 
     @FXML
     public GridPane root;
@@ -79,6 +79,7 @@ public class FightController {
         enemy = HeroFabric.createAHero(bufferedReader.readLine());
         opponentNameLabel.setText(enemy.getHeroName());
         opponentIV.setImage(enemy.getFrontWait());
+        refreshEnemyHp();
 
         Thread thread = new Thread(() -> {
             while (true){
@@ -88,13 +89,34 @@ public class FightController {
                         status = Status.WATITING;
                     else if(command.equals("TUR"))
                         status = Status.TURN;
-                    else if(command.equals("WON"))
+                    else if(command.equals("WIN"))
                         Loader.goTo(WIN_FXML, root);
                     else if(command.equals("LOS"))
                         Loader.goTo(LOS_FXML, root);
                     else {
                         String[] commands = command.split("&");
-
+                        switch (commands[0]){
+                            case "ATT":{
+                                console.setText(console.getText() + "\n" + enemy.getHeroName() +
+                                        " has attacked you and inflicted " + commands[1] + " damage points.");
+                                myself.setHp(myself.getHp() - Integer.parseInt(commands[1]));
+                                refreshHp();
+                                break;
+                            }
+                            case "HEA":{
+                                enemy.setHp(Integer.parseInt(commands[1]));
+                                refreshEnemyHp();
+                                console.setText(console.getText() + "\n" + enemy.getHeroName() +
+                                        " healed himself, so now he has " + enemy.getHp() + " health points.");
+                                break;
+                            }
+                            case "FLI":{
+                                console.setText(console.getText() + "\n" + enemy.getHeroName() +
+                                        " has very pretty eyes, and you don't want to hit him.");
+                                status = Status.WATITING;
+                                printWriter.println("WAI");
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -106,27 +128,27 @@ public class FightController {
     }
 
     public void btnHandler(MouseEvent mouseEvent){
-        // TODO: 17.03.2017 прием знаков с сервера
         if(status == Status.TURN){
             if(mouseEvent.getSource().equals(attackBtn))
-                playerAttack();
+                attack();
             else if(mouseEvent.getSource().equals(healBtn))
                 heal();
             else if(mouseEvent.getSource().equals(flirtBtn))
-                playerFlirt();
+                flirt();
             else if(mouseEvent.getSource().equals(leaveBtn))
-                playerLeave();
+                leave();
         }
     }
 
-    public void playerAttack() {
+    public void attack() {
         double attackPower = (myself.isFlirted() ? 0.5 : 1);
         myself.setImageView(new ImageView(myself.getBackAttack()));
         new AnimationTimer(){
             long was = 0;
             @Override
             public void handle(long now) {
-                myself.setImageView(new ImageView(myself.getBackWait()));
+                if(now - was > 1000)
+                    myself.setImageView(new ImageView(myself.getBackWait()));
             }
 
         }.start();
@@ -135,34 +157,32 @@ public class FightController {
         refreshEnemyHp();
         status = Status.WATITING;
     }
-
     public void heal() {
         if(myself.getNowCoolDown() == 0){
             myself.heal();
             printWriter.println("HEA&" + myself.getHp());
             refreshHp();
+            status = Status.WATITING;
         }
-        else printWriter.println("HEA&error");
-        status = Status.WATITING;
     }
-
-    public void playerFlirt() {
+    public void flirt() {
         printWriter.println("FLI&" + myself.flirt());
     }
-
-    public void playerLeave() {
-        myself.setHp(0);
+    public void leave() {
         printWriter.println("LEA");
-        refreshHp();
+    }
+
+    private String getStringOnAction(String [] commands){
+
+        return null;
     }
 
     private void refreshHp(){
-        playerHp.setText("hp: " + myself.getHp() + "/" + myself.getAllHp());
+        playerHp.setText("hp: " + (myself.getHp() > 0 ? myself.getHp() : 0) + "/" + myself.getAllHp());
         playerHPBar.setProgress(countProgress(myself));
     }
-
     private void refreshEnemyHp(){
-        opponentHp.setText("hp: " + enemy.getHp() + "/" + enemy.getAllHp());
+        opponentHp.setText("hp: " + (enemy.getHp() > 0 ? enemy.getHp() : 0) + "/" + enemy.getAllHp());
         opponentHPBar.setProgress(countProgress(enemy));
     }
 
@@ -174,7 +194,7 @@ public class FightController {
         }catch (Exception e){
             e.printStackTrace();
         }
-        return (progress > 0 ? progress : 0);
+        return (progress);
     }
 
 }

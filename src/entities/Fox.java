@@ -14,6 +14,7 @@ public class Fox extends Hero{
         hp = allHp;
         flirtChance = 0.7;
         attackPower = 10;
+        healCoolDown = 5;
 
         desc = "Fair spring came and melted the fox's house, while the hare's stood firm and strong.";
     }
