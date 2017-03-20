@@ -1,6 +1,7 @@
 package Server;
 
 import java.io.*;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,10 @@ public class Room implements Runnable{
                 String command = bufferedReaders.get(nowAct).readLine();
                 handleCommand(nowAct, command);
                 nowAct = getOtherIndex(nowAct);
+            }catch (SocketException e){
+                System.out.println("I've lost connection with " + nowAct + "!");
+                break;
+                //doNothing
             } catch (Exception e) {
                 e.printStackTrace();
             }

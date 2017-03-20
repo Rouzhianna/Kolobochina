@@ -20,6 +20,7 @@ public abstract class Hero {
     public int getHealCoolDown() { return healCoolDown; }
     public int getNowCoolDown() { return nowCoolDown; }
     public boolean isFlirted() { return isFlirted; }
+    public void setFlirted(boolean flirted) { this.isFlirted = flirted; }
 
     protected int nowCoolDown = 0;
     protected boolean isFlirted = false;
@@ -50,10 +51,7 @@ public abstract class Hero {
     public int getAttackPower() { return attackPower; }
 
     public void setHp(int hp) { this.hp = hp; }
-    public boolean isActive() { return isActive; }
-    public void setActive(boolean active) {
-        isActive = active;
-    }
+
 
     public String attack(Hero hero) {
         System.out.println("Hero attacks depending of flirting");
@@ -62,12 +60,16 @@ public abstract class Hero {
 
     public boolean heal(){
         if(nowCoolDown == 0) {
-            int hp = getHp() + 7;
+            int hp = getHp() + 10;
             setHp(hp > getAllHp() ? allHp : hp);
             nowCoolDown = healCoolDown;
             return true;
         }
         return false;
+    }
+
+    public void reduceNowCoolDown(){
+        nowCoolDown = (nowCoolDown == 0 ? 0 : nowCoolDown - 1);
     }
 
     public boolean flirt(){
@@ -94,10 +96,6 @@ public abstract class Hero {
 
     public String getDesc() {
         return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
     }
 
     protected void addImages() {

@@ -19,9 +19,10 @@ import javafx.scene.layout.GridPane;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.SocketException;
 
 /**
- * @author Oleg Shatin
+ * @author Oleg Shatin and Nina Fazlyeva, yo
  *         11-501
  */
 public class FightController {
@@ -61,8 +62,8 @@ public class FightController {
     @FXML
     public Button leaveBtn;
 
-    private Hero myself;
-    private Hero enemy;
+    private static Hero myself;
+    private static Hero enemy;
     private Status status;
     private PrintWriter printWriter = Connection.getPrintWriter();
     private BufferedReader bufferedReader = Connection.getBufferedReader();
@@ -90,22 +91,21 @@ public class FightController {
                         status = Status.WAITING;
                     else if (command.equals("TUR"))
                         status = Status.TURN;
-                    else if (command.equals("WIN")){
+                    else if (command.equals("WIN")) {
                         Platform.runLater(() ->
                                 Loader.goTo(WIN_FXML, root));
                         break;
-                    }
-                    else if (command.equals("LOS")) {
+                    } else if (command.equals("LOS")) {
                         Platform.runLater(() ->
                                 Loader.goTo(LOS_FXML, root));
                         break;
-                    }
-                    else {
+                    } else {
                         String[] commands = command.split("&");
                         switch (commands[0]) {
                             case "ATT": {
                                 console.setText(console.getText() + "\n" + enemy.getHeroName() +
-                                        " has attacked you and inflicted " + commands[1] + " damage points.");
+                                        " has attacked you and inflicted " + Integer.parseInt(commands[1])
+                                        + " damage points.");
                                 myself.setHp(myself.getHp() - Integer.parseInt(commands[1]));
                                 Platform.runLater(() -> refreshHp());
                                 if (myself.getHp() <= 0)
@@ -122,13 +122,17 @@ public class FightController {
                                 break;
                             }
                             case "FLI": {
-                                Platform.runLater(() -> console.setText(console.getText() + "\n" + enemy.getHeroName() +
-                                        " has very pretty eyes, and you don't want to hit him."));
-                                status = Status.WAITING;
-                                printWriter.println("WAI");
+                                String flirtCom = "\n" + enemy.getHeroName() + "has very pretty eyes, ";
+                                flirtCom += (commands[1].equals("true") ? "and you don't want to hit him." :
+                                        "but you know his plan, so... LOL!");
+                                myself.setFlirted(Boolean.parseBoolean(commands[1]));
+                                String finalFlirtCom = flirtCom;
+                                Platform.runLater(() -> console.setText(console.getText() + finalFlirtCom));
                             }
                         }
                     }
+                } catch (SocketException s){
+                    s.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -138,8 +142,35 @@ public class FightController {
 
     }
 
+    private void setTextOnAction(String action, int points) {
+        switch (action) {
+            case "ATT": {
+                console.setText(console.getText() + "\nYou attacked " + enemy.getHeroName() +
+                        " and inflicted " + points + " damage points.");
+                break;
+            }
+            case "HEA": {
+                console.setText(console.getText() + "\nYou healed yourself, so now you have " +
+                        myself.getHp() + " health points.");
+                break;
+            }
+            case "FLI": {
+                String flirtText = "\nYou have very pretty eyes, ";
+                flirtText += (points == 0 ? "and " + enemy.getHeroName() + " doesn't want to hit you." :
+                        "but " + enemy.getHeroName() + "still wants to hit you. LOL");
+                console.setText(console.getText() + flirtText);
+//                        "and " + enemy.getHeroName() + " doesn't want to hit you."));
+                break;
+            }
+            case "LEA": {
+                console.setText(console.getText() + "\nYou leaved this battle. What a pity.");
+            }
+        }
+    }
+
     public void btnHandler(MouseEvent mouseEvent) {
         if (status == Status.TURN) {
+            myself.reduceNowCoolDown();
             if (mouseEvent.getSource().equals(attackBtn))
                 attack();
             else if (mouseEvent.getSource().equals(healBtn))
@@ -152,27 +183,30 @@ public class FightController {
     }
 
     public void attack() {
-        double attackPower = (myself.isFlirted() ? 0.5 : 1);
+        int attackPower = (int) (myself.getAttackPower() * (myself.isFlirted() ? 0.5 : 1));
         myself.setImageView(new ImageView(myself.getBackAttack()));
         new AnimationTimer() {
             long was = 0;
 
             @Override
             public void handle(long now) {
-                if (now - was > 1000)
+                if (now - was > 10000)
                     myself.setImageView(new ImageView(myself.getBackWait()));
             }
 
         }.start();
-        enemy.setHp((int) (enemy.getHp() - myself.getAttackPower() * attackPower));
-        printWriter.println("ATT&" + myself.getAttackPower());
+        enemy.setHp(enemy.getHp() - attackPower);
+        myself.setFlirted(false);
+        Platform.runLater(()->setTextOnAction("ATT", (int) attackPower));
+        printWriter.println("ATT&" + attackPower);
         refreshEnemyHp();
         status = Status.WAITING;
     }
 
     public void heal() {
-        if (myself.getNowCoolDown() == 0) {
+        if (myself.getNowCoolDown() == 0 && myself.getHp() != myself.getAllHp()) {
             myself.heal();
+            setTextOnAction("HEA", myself.getHp());
             printWriter.println("HEA&" + myself.getHp());
             refreshHp();
             status = Status.WAITING;
@@ -180,16 +214,14 @@ public class FightController {
     }
 
     public void flirt() {
-        printWriter.println("FLI&" + myself.flirt());
+        boolean flag = myself.flirt();
+        setTextOnAction("FLI", flag ? 0 : 1);
+        printWriter.println("FLI&" + flag);
     }
 
     public void leave() {
+        setTextOnAction("LEA", 0);
         printWriter.println("LEA");
-    }
-
-    private String getStringOnAction(String[] commands) {
-
-        return null;
     }
 
     private void refreshHp() {

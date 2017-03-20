@@ -11,9 +11,12 @@ public class Fox extends Hero{
         hp = allHp;
         flirtChance = 0.7;
         attackPower = 10;
-        healCoolDown = 5;
+        healCoolDown = 3;
 
-        desc = "Fair spring came and melted the fox's house, while the hare's stood firm and strong.";
+        desc = "Beautiful and charming fox.\n" +
+                "She has more hp than kolobok or rabbit,\n" +
+                "But she isn't that strong, and she\n" +
+                "restores her ability to heal very slow.";
     }
 
     @Override

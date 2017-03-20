@@ -7,8 +7,7 @@
 *.jar
 *.war
 *.ear
-out/
-.idea/
+/out/*
 *.iml
 /.idea/*
 
