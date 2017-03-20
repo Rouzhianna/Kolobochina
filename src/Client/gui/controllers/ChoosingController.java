@@ -1,11 +1,11 @@
-package gui.controllers;
+package Client.gui.controllers;
 
 import Client.Helpers.Connection;
 import Client.Helpers.Loader;
-import entities.Fox;
-import entities.Hero;
-import entities.Kolobok;
-import entities.Rabbit;
+import Client.entities.Fox;
+import Client.entities.Hero;
+import Client.entities.Kolobok;
+import Client.entities.Rabbit;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -25,7 +25,7 @@ import java.util.Collection;
  */
 public class ChoosingController {
 
-    private static final String FIGHT_FXML = "../../gui/fight_win.fxml";
+    private static final String FIGHT_FXML = "../gui/fight_win.fxml";
 
     @FXML
     public Label selectLabel;
@@ -102,6 +102,7 @@ public class ChoosingController {
         System.out.println(name);
 
         selectLabel.setText("Waiting for server connection...");
+        Connection.setHost(hostname.getText());
         Connection.init();
         Connection.getPrintWriter().println(name);
         selectLabel.setText("Waiting for another player...");

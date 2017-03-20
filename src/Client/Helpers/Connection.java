@@ -9,11 +9,13 @@ import java.net.Socket;
 public class Connection {
 
     private static final int PORT = 6543;
-    private static final String HOST = "localhost";
+    private static String HOST;
 
     private static Socket server;
     private static PrintWriter printWriter;
     private static BufferedReader bufferedReader;
+
+    public static void setHost(String host){ HOST = host;}
 
     public static void init(){
         try {

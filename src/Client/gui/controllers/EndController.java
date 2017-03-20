@@ -1,4 +1,4 @@
-package gui.controllers;
+package Client.gui.controllers;
 
 /**
  * @author Oleg Shatin

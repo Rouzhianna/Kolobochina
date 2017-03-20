@@ -1,7 +1,4 @@
-package entities;
-
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+package Client.entities;
 
 /**
  * Created by N33na on 02.03.2017.

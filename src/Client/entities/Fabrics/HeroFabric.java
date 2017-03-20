@@ -1,9 +1,9 @@
-package entities.Fabrics;
+package Client.entities.Fabrics;
 
-import entities.Fox;
-import entities.Hero;
-import entities.Kolobok;
-import entities.Rabbit;
+import Client.entities.Fox;
+import Client.entities.Hero;
+import Client.entities.Kolobok;
+import Client.entities.Rabbit;
 
 /**
  * Created by N33na on 02.03.2017.

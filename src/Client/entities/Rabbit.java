@@ -1,4 +1,4 @@
-package entities;
+package Client.entities;
 
 /**
  * Created by N33na on 14.03.2017.

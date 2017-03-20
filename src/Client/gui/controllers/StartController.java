@@ -1,8 +1,7 @@
-package gui.controllers;
+package Client.gui.controllers;
 
 import Client.Helpers.Loader;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -11,7 +10,7 @@ public class StartController {
 
     private Stage stage;
 
-    private static final String CHOOSE_FXML = "../../gui/choose_fighter_win.fxml";
+    private static final String CHOOSE_FXML = "../gui/choose_fighter_win.fxml";
 
     @FXML
     private Pane menuPane;

@@ -1,9 +1,6 @@
 package Client;
 
-import entities.Fox;
-import entities.Hero;
-import entities.Kolobok;
-import gui.controllers.StartController;
+import Client.gui.controllers.StartController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +15,7 @@ import java.io.IOException;
 
 public class Player extends Application{
 
-    private static final String START_FXML = "/gui/start_win.fxml";
+    private static final String START_FXML = "gui/start_win.fxml";
 
     public static void main(String[] args) {
         launch(args);
